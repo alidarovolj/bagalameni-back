@@ -25,12 +25,22 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::post('login', 'App\Http\Controllers\Api\Auth\LoginController@login');
 Route::get('refresh', 'App\Http\Controllers\Api\Auth\LoginController@refresh');
 Route::post('userRegistration', 'App\Http\Controllers\Api\User\UserController@userRegistration');
+
 Route::post('messageSave', 'App\Http\Controllers\Api\Messages\MessagesController@messageSave');
+
 Route::get('products/{id}', 'App\Http\Controllers\Api\Products\ProductsController@productById');
 Route::get('products', 'App\Http\Controllers\Api\Products\ProductsController@products');
+
 Route::get('posts', 'App\Http\Controllers\Api\Posts\PostsController@posts');
 Route::get('posts/{id}', 'App\Http\Controllers\Api\Posts\PostsController@postById');
 Route::post('postSave', 'App\Http\Controllers\Api\Posts\PostsController@postSave');
+
+Route::get('schools', 'App\Http\Controllers\Api\Schools\SchoolsController@schools');
+Route::post('schoolSave', 'App\Http\Controllers\Api\Schools\SchoolsController@schoolSave');
+Route::get('schools/{id}', 'App\Http\Controllers\Api\Schools\SchoolsController@schoolById');
+
+Route::get('professors', 'App\Http\Controllers\Api\Professors\ProfessorsController@professors');
+Route::post('professorSave', 'App\Http\Controllers\Api\Professors\ProfessorsController@professorSave');
 
 Route::group(['middleware' => ['jwt.verify']], function () {
     Route::get('allUsers', 'App\Http\Controllers\Api\User\UserController@allUsers');

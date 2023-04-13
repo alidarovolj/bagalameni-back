@@ -43,23 +43,19 @@ class UserController extends Controller
     public function userRegistration(Request $request)
     {
         $rules = [
-            'name' => 'required',
             'email' => 'required',
             'password' => 'required',
-            'phone' => 'required',
-            'lastname' => 'required',
-            'patro' => 'required',
             'password_confirmation' => 'required'
         ];
 
-        $input = $request->only('name', 'email', 'password', 'phone', 'password_confirmation', 'lastname', 'patro');
+        $input = $request->only('email', 'password', 'password_confirmation');
         $validator = Validator::make($input, $rules);
 
         if ($validator->fails()) {
             return response()->json(['success' => false, 'error' => $validator->messages()]);
         }
         if ($request->password === $request->password_confirmation) {
-            $user = User::create(['name' => $request->name, 'email' => $request->email, 'password' => Hash::make($request->password), 'admin' => false, 'patro' => $request->patro, 'lastname' => $request->lastname]);
+            $user = User::create(['email' => $request->email, 'password' => Hash::make($request->password), 'lastName' => null, 'admin' => false, 'firstName' => null]);
         } else {
             return response()->json(['success' => false, 'error' => "Data didn't match"]);
         }
@@ -74,10 +70,8 @@ class UserController extends Controller
             return response()->json(['success' => false, 'error' => $e->getMessage()], 401);
         }
         User::where('id', auth()->user()->id)->update(array(
-            'name' => $request->name,
-            'lastname' => $request->lastname,
-            'patro' => $request->patro,
-            'iin' => $request->iin,
+            'firstName' => $request->firstName,
+            'lastName' => $request->lastName
         ));
         return response()->json(['success' => true, "data" => "Data updated successfully"], 200);
     }
