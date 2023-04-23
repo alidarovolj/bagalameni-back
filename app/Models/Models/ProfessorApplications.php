@@ -5,16 +5,14 @@ namespace App\Models\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Professors extends Model
+class ProfessorApplications extends Model
 {
     use HasFactory;
     protected $fillable = [
         'fullName',
-        'overallRating',
         'school_name',
-        'subject_id',
         'difficulty',
+        'subject_id',
         'school_id',
-        'user_id'
     ];
 }

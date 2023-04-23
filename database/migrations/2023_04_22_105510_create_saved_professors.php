@@ -13,15 +13,13 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('ratings', function (Blueprint $table) {
+        Schema::create('saved_professors', function (Blueprint $table) {
             $table->id();
-            $table->float('value');
-            $table->bigInteger('professor_id')->unsigned()->nullable();
-            $table->foreign('professor_id')->references('id')->on('professors')->nullable();
-            $table->bigInteger('school_id')->unsigned()->nullable();
-            $table->foreign('school_id')->references('id')->on('schools')->nullable();
+            $table->longText('professor_name');
             $table->bigInteger('user_id')->unsigned()->nullable();
             $table->foreign('user_id')->references('id')->on('users')->nullable();
+            $table->bigInteger('professor_id')->unsigned()->nullable();
+            $table->foreign('professor_id')->references('id')->on('professors')->nullable();
             $table->timestamps();
         });
     }
@@ -33,6 +31,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('ratings');
+        Schema::dropIfExists('saved_professors');
     }
 };

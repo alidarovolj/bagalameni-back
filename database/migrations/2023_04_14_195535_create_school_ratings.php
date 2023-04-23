@@ -13,10 +13,20 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('professors', function (Blueprint $table) {
+        Schema::create('school_ratings', function (Blueprint $table) {
             $table->id();
-            $table->string('fullName');
-            $table->float('overallRating')->nullable();
+            $table->longText('review');
+            $table->bigInteger('happiness');
+            $table->bigInteger('internet');
+            $table->bigInteger('safety');
+            $table->bigInteger('opportunities');
+            $table->bigInteger('location');
+            $table->bigInteger('reputation');
+            $table->bigInteger('facilities');
+            $table->bigInteger('social');
+            $table->bigInteger('food');
+            $table->bigInteger('clubs');
+            $table->float('overallRating');
             $table->bigInteger('school_id')->unsigned();
             $table->foreign('school_id')->references('id')->on('schools');
             $table->bigInteger('user_id')->unsigned()->nullable();
@@ -32,6 +42,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('professors');
+        Schema::dropIfExists('school_ratings');
     }
 };

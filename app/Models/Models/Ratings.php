@@ -9,9 +9,20 @@ class Ratings extends Model
 {
     use HasFactory;
     protected $fillable = [
-        'value',
+        'overall',
+        'difficulty',
+        'repeat',
+        'is_credit',
+        'attendance',
+        'grade',
+        'review',
         'professor_id',
-        'school_id',
-        'user_id'
+        'subject_id',
+        'user_id',
+        'tags'
+    ];
+
+    protected $casts = [
+        'tags' => 'array',
     ];
 }

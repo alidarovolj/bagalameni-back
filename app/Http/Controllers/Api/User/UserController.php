@@ -83,15 +83,17 @@ class UserController extends Controller
         } catch (\Tymon\JWTAuth\Exceptions\UserNotDefinedException $e) {
             return response()->json(['success' => false, 'error' => $e->getMessage()], 401);
         }
+        User::where('id', auth()->user()->id)->update(array(
+            'email' => $request->email,
+        ));
         $hashedPassword = auth()->user()->password;
-        if (Hash::check($request->cur_pass, $hashedPassword)) {
-            User::where('id', auth()->user()->id)->update(array(
-                'password' => Hash::make($request->password),
-            ));
-            return response()->json(['success' => true, "data" => "Password updated"], 200);
-        } else {
-            return response()->json(['success' => false]);
-        }
-        return response()->json(['success' => true, "data" => "Data updated successfully"], 200);
+            if($request->password == $request->confirm_password) {
+                User::where('id', auth()->user()->id)->update(array(
+                    'password' => Hash::make($request->password),
+                ));
+                return response()->json(['success' => true, "data" => "Password updated"], 200);
+            } else {
+                return response()->json(['success' => false, 'error' => "Data didn't match"]);
+            }
     }
 }
