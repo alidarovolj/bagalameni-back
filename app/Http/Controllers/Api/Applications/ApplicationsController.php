@@ -26,13 +26,12 @@ class ApplicationsController extends Controller
     {
         $rules = [
             'title' => 'required',
-            'location' => 'required',
         ];
         $validator = Validator::make($request->all(), $rules);
         if ($validator->fails()) {
             return response()->json(['success' => false, $validator->errors()], 400);
         }
-        $post = Applications::create(['title' => $request->title, 'location_place' => $request->location]);
+        $post = Applications::create(['title' => $request->title, 'location_city' => $request->location_city, 'location_region' => $request->location_region, 'location_street' => $request->location_street]);
         return response()->json(['success' => true, $post], 201);
     }
 
@@ -77,7 +76,7 @@ class ApplicationsController extends Controller
         }
         $item = Applications::where('id',  "=", $request->id)->first();
         if($request->state == true) {
-            $post = Schools::create(['title' => $item->title, 'overallRating' => null, 'location_place' => $item->location_place, 'happiness' => null, 'internet' => null, 'safety' => null, 'opportunities' => null, 'location' => null, 'reputation' => null, 'facilities' => null, 'social' => null, 'food' => null, 'clubs' => null, 'user_id' => null]);
+            $post = Schools::create(['title' => $item->title, 'overallRating' => null, 'location_city' => $item->location_city, 'location_region' => $item->location_region, 'location_street' => $item->location_street, 'happiness' => null, 'internet' => null, 'safety' => null, 'opportunities' => null, 'location' => null, 'reputation' => null, 'facilities' => null, 'social' => null, 'food' => null, 'clubs' => null, 'user_id' => null]);
             Applications::where('id', $request->id)->delete();
         } else {
             Applications::where('id', $request->id)->delete();

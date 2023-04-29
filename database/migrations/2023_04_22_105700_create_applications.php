@@ -16,7 +16,9 @@ return new class extends Migration
         Schema::create('applications', function (Blueprint $table) {
             $table->id();
             $table->longText('title');
-            $table->longText('location_place');
+            $table->longText('location_city')->nullable();
+            $table->longText('location_region')->nullable();
+            $table->longText('location_street')->nullable();
             $table->timestamps();
         });
     }

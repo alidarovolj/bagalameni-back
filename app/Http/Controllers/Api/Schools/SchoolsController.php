@@ -20,13 +20,12 @@ class SchoolsController extends Controller
     {
         $rules = [
             'title' => 'required',
-            'location' => 'required',
         ];
         $validator = Validator::make($request->all(), $rules);
         if ($validator->fails()) {
             return response()->json(['success' => false, $validator->errors()], 400);
         }
-        $post = Schools::create(['title' => $request->title, 'overallRating' => null, 'location_place' => $request->location, 'happiness' => null, 'internet' => null, 'safety' => null, 'opportunities' => null, 'location' => null, 'reputation' => null, 'facilities' => null, 'social' => null, 'food' => null, 'clubs' => null, 'user_id' => auth()->user()->id]);
+        $post = Schools::create(['title' => $request->title, 'overallRating' => null, 'location_city' => $request->location_city, 'location_region' => $request->location_region, 'location_street' => $request->location_street, 'happiness' => null, 'internet' => null, 'safety' => null, 'opportunities' => null, 'location' => null, 'reputation' => null, 'facilities' => null, 'social' => null, 'food' => null, 'clubs' => null, 'user_id' => auth()->user()->id]);
         return response()->json(['success' => true, $post], 201);
     }
     public function schoolById($id)

@@ -10,6 +10,8 @@ class Applications extends Model
     use HasFactory;
     protected $fillable = [
         'title',
-        'location_place'
+        'location_city',
+        'location_region',
+        'location_street',
     ];
 }
