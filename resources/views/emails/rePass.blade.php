@@ -1,12 +1,11 @@
 <x-mail::message>
-# Introduction
+    Dear {{$email}}!
+    Here is your current password:
 
-The body of your message.
+    Password: {{$pass}}
 
-<x-mail::button :url="''">
-Button Text
-</x-mail::button>
+    <x-mail::button :url="'http://bagalameni.kz/'">
+        Go to a website
+    </x-mail::button>
 
-Thanks,<br>
-{{ config('app.name') }}
 </x-mail::message>

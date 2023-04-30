@@ -109,7 +109,13 @@ class UserController extends Controller
             return response()->json(['success' => false, $validator->errors()], 400);
         }
         $email = $request->email;
-        Mail::to($request->email)->send(new RePass($email));
-        return response()->json(['success' => true], 201);
+        $user = User::where('email', $request->email)->first();
+        $pass = $user->password;
+        if($user != null) {
+            Mail::to($request->email)->send(new RePass($email, $pass));
+        } else {
+            return response()->json(['success' => false, 'error' => 'No such user'], 201);
+        }
+        return response()->json(['success' => true, 'user' => $user, '$pass' => $pass]    , 201);
     }
 }

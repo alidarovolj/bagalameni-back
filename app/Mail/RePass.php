@@ -13,15 +13,17 @@ class RePass extends Mailable
 {
     use Queueable, SerializesModels;
     public $email;
+    public $pass;
 
     /**
      * Create a new message instance.
      *
      * @return void
      */
-    public function __construct($email)
+    public function __construct($email, $pass)
     {
         $this->email = $email;
+        $this->pass = $pass;
     }
     public function build()
     {
