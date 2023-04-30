@@ -25,6 +25,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::post('login', 'App\Http\Controllers\Api\Auth\LoginController@login');
 Route::get('refresh', 'App\Http\Controllers\Api\Auth\LoginController@refresh');
 Route::post('userRegistration', 'App\Http\Controllers\Api\User\UserController@userRegistration');
+Route::post('resetPass', 'App\Http\Controllers\Api\User\UserController@resetPass');
 
 Route::post('messageSave', 'App\Http\Controllers\Api\Messages\MessagesController@messageSave');
 

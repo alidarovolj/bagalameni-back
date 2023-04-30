@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api\User;
 
+use App\Mail\RePass;
 use Illuminate\Validation\ValidationException;
 use App\Http\Controllers\Api\Controller;
 use Illuminate\Http\Request;
@@ -9,6 +10,7 @@ use App\Models\User;
 use App\Models\Models\Emails;
 use App\Models\Models\Phones;
 use App\Models\Models\Notifications;
+use Illuminate\Support\Facades\Mail;
 use Auth;
 use Illuminate\Support\Facades\Hash;
 
@@ -95,5 +97,19 @@ class UserController extends Controller
             } else {
                 return response()->json(['success' => false, 'error' => "Data didn't match"]);
             }
+    }
+
+    public function resetPass(Request $request)
+    {
+        $rules = [
+            'email' => 'required',
+        ];
+        $validator = Validator::make($request->all(), $rules);
+        if ($validator->fails()) {
+            return response()->json(['success' => false, $validator->errors()], 400);
+        }
+        $email = $request->email;
+        Mail::to($request->email)->send(new RePass($email));
+        return response()->json(['success' => true], 201);
     }
 }
