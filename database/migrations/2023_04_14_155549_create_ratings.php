@@ -18,8 +18,6 @@ return new class extends Migration
             $table->bigInteger('overall');
             $table->bigInteger('difficulty');
             $table->boolean('repeat');
-            $table->boolean('is_credit');
-            $table->boolean('attendance');
             $table->boolean('grade');
             $table->json('tags');
             $table->longText('review');

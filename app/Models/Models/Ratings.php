@@ -12,8 +12,6 @@ class Ratings extends Model
         'overall',
         'difficulty',
         'repeat',
-        'is_credit',
-        'attendance',
         'grade',
         'review',
         'professor_id',

@@ -24,17 +24,20 @@ class ProfessorsController extends Controller
         $column = 'id';
         $post = Professors::where($column ,  "=", $id)->first();
         $school = Schools::where('id',  "=", $post->school_id)->first();
-        $selected = SavedProfessors::where('professor_id', $post->id)->where('user_id', auth()->user()->id)->first();
-        $saved = false;
-        if($selected != null) {
-            $saved = true;
-        } else {
+        if(auth()->user() != null) {
+            $selected = SavedProfessors::where('professor_id', $post->id)->where('user_id', auth()->user()->id)->first();
             $saved = false;
+            if($selected != null) {
+                $saved = true;
+            } else {
+                $saved = false;
+            }
+            return response()->json(['data' => Professors::where($column,  "=", $id)->first(), 'school' => $school, 'saved' => $saved]);
         }
         if (is_null($post)) {
             return response()->json(['error' => true, 'message' => 'object not found'], 404);
         }
-        return response()->json(['data' => Professors::where($column,  "=", $id)->first(), 'school' => $school, 'saved' => $saved],  200);
+        return response()->json(['data' => Professors::where($column,  "=", $id)->first(), 'school' => $school],  200);
     }
     public function professorSave(Request $request)
     {
